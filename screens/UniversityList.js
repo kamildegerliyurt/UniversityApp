@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native'
+import { FlatList, StyleSheet, Text, View, TouchableWithoutFeedback, Keyboard } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useState, useEffect } from 'react'
@@ -32,26 +32,28 @@ setFilterList(filtered)
 //-----------------------------------------------------------
 
   return (
-    <SafeAreaView style={styles.universityListContainer}>
-     <SearchBar searchBar={handleSearchData}/>
-        <View style={styles.flatListContainer}>
-            <FlatList data={filterList.length > 0 ? filterList : universityData}
-                      showsVerticalScrollIndicator={false}
-                      alwaysBounceVertical={false}
-                      snapToAlignment={'start'} 
-                      decelerationRate={'fast'} 
-                      keyExtractor={(item)=> item.id}
-                      renderItem={({item})=> {
-
-                        const name = item?.name
-
-                        return(
-                           <RenderItem data={item}
-                                       name={name}/>
-                        )
-                      }}/>
-        </View>
-    </SafeAreaView>
+  <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <SafeAreaView style={styles.universityListContainer}>
+       <SearchBar searchBar={handleSearchData}/>
+          <View style={styles.flatListContainer}>
+              <FlatList data={filterList.length > 0 ? filterList : universityData}
+                        showsVerticalScrollIndicator={false}
+                        alwaysBounceVertical={false}
+                        snapToAlignment={'start'} 
+                        decelerationRate={'fast'} 
+                        keyExtractor={(item)=> item.id}
+                        renderItem={({item})=> {
+  
+                          const name = item?.name
+  
+                          return(
+                             <RenderItem data={item}
+                                         name={name}/>
+                          )
+                        }}/>
+          </View>
+      </SafeAreaView>
+ </TouchableWithoutFeedback>
   )
 }
 
