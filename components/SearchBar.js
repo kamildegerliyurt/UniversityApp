@@ -1,34 +1,41 @@
-import { StyleSheet, Text, TextInput, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, TextInput, View, TouchableWithoutFeedback } from 'react-native';
+import React, { useRef } from 'react';
 
+
+//------------------------------------
 const SearchBar = (props) => {
-    
-const search = props.searchBar
+  const search = props.getSearchData;
+  const textInputRef = useRef(null);
+//------------------------------------
 
   return (
-    <View style={styles.searchBarContainer}>
-      <TextInput style={styles.textInputContainer}
-                 placeholder='Search...'
-                 placeholderTextColor={"gray"}
-                 onChangeText={search}/>
-    </View>
-  )
+    <TouchableWithoutFeedback onPress={() => textInputRef.current.focus()}>
+      <View style={styles.searchBarContainer}>
+        <TextInput
+          style={styles.textInputContainer}
+          placeholder='Search...'
+          placeholderTextColor={"gray"}
+          onChangeText={search}
+          ref={textInputRef}
+        />
+      </View>
+    </TouchableWithoutFeedback>
+  );
 }
 
-export default SearchBar
+export default SearchBar;
 
 const styles = StyleSheet.create({
-    searchBarContainer: {
-     borderWidth:2,
-     marginTop:40,
-     width:"95%",
-     padding:7,
-     alignItems:"center",
-     justifyContent:"center",
-     borderRadius:10,
-    },
-    textInputContainer: {
-     fontSize:20,
-     fontWeight:"bold",
-    }
-})
+  searchBarContainer: {
+    borderWidth: 2,
+    width: "95%",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 5,
+    borderRadius: 10,
+  },
+  textInputContainer: {
+    fontSize: 20,
+    fontWeight: "bold",
+  }
+});
